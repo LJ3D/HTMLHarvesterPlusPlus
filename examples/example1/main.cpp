@@ -1,8 +1,9 @@
+#include <iostream>
 #include "../../HTMLHPP.hpp"
 
-
 int main(){
-    HTMLH::HelloWorld();
+
+    std::cout << "Hello world\n";
 
     return 0;
 }
