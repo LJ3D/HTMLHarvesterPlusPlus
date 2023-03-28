@@ -3,6 +3,7 @@
 #include <string>
 #include <curl/curl.h>
 #include "../../HTMLHPP.hpp"
+#include <vector>
 
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp){
     // userp is the pointer passed to the function setting CURLOPT_WRITEDATA
@@ -38,6 +39,14 @@ int main(void){
     out.close();
 
     std::cout << "Title is: " << HTMLH::getTitle(readBuffer) << std::endl;
+
+    std::vector<std::string> links = HTMLH::getLinks(readBuffer);
+    
+    std::cout << "Links:" << std::endl;
+    for(auto i: links){
+        std::cout << i << std::endl;
+
+    }
 
     return 0;
 }
