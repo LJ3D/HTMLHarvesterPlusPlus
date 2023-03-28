@@ -44,4 +44,38 @@ namespace HTMLH {
         return links;
     }
 
+    void Cleanlinks(std::vector<std::string>& links , std::string sourceURL){
+        
+        for(auto& url : links){
+            //check if contains #
+            size_t hash = url.find('#');
+            if(hash != std::string::npos){
+                url = url.substr(0,hash);
+            }
+            //starts with "//"
+            if(url.starts_with("//")){
+                url = "http:" + url;
+            }
+
+            //attach url to the front of relative links
+            if(!url.starts_with("http")){
+                if(!url.starts_with("/")){
+                    url = "/" + url;
+                }
+                url = sourceURL + url;
+            }
+
+
+        }
+
+        //remove empty
+        for(int i = 0; i< links.size();i++){
+            if(links[i] == ""){
+                links.erase(links.begin() + i);
+                i--;
+            }
+        }
+    }
+
+
 }

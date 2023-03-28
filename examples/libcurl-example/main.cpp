@@ -45,7 +45,8 @@ int main(void){
     std::cout << "Title is: " << HTMLH::getTitle(readBuffer) << std::endl;
 
     std::vector<std::string> links = HTMLH::getLinks(readBuffer);
-    
+    HTMLH::Cleanlinks(links, URL);
+
     std::cout << "Links:" << std::endl;
     for(auto i: links){
         std::cout << i << std::endl;
