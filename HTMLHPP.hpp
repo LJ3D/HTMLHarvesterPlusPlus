@@ -30,7 +30,7 @@ namespace HTMLH {
             size_t tagFindStart = 0; // Used to find the next tag (updates to position of end of current link)
             while(found != std::string::npos){
                 size_t firstQuote = html.find('"', found) + 1;
-                size_t secondQuote = html.find('"', firstQuote+1);    
+                size_t secondQuote = html.find('"', firstQuote+1);
                 if(firstQuote == std::string::npos || secondQuote == std::string::npos){
                     break;
                 }
@@ -38,37 +38,35 @@ namespace HTMLH {
 
                 // Find the next tag
                 tagFindStart = secondQuote + 1;
-                found = html.find(tag, tagFindStart);
+                found = html.find(tag, tagFindStart); // No need to err hande because while loop will break if not found
             }
         }
         return links;
     }
 
-    void Cleanlinks(std::vector<std::string>& links , std::string sourceURL){
-        
+    void cleanlinks(std::vector<std::string>& links, std::string sourceURL){
         for(auto& url : links){
-            //check if contains #
+            // Remove anything after a #
             size_t hash = url.find('#');
             if(hash != std::string::npos){
                 url = url.substr(0,hash);
             }
-            //starts with "//"
+
+            // Starts with "//" -> add http: (// indicates use the same protocol as the page, but we will ignore that for now and default to http)
             if(url.starts_with("//")){
                 url = "http:" + url;
             }
 
-            //attach url to the front of relative links
+            // Attach url to the front of relative links
             if(!url.starts_with("http")){
                 if(!url.starts_with("/")){
                     url = "/" + url;
                 }
                 url = sourceURL + url;
             }
-
-
         }
 
-        //remove empty
+        // Remove any empty link strings
         for(int i = 0; i< links.size();i++){
             if(links[i] == ""){
                 links.erase(links.begin() + i);
