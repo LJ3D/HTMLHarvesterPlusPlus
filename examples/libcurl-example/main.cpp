@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <curl/curl.h>
+#include "../../HTMLHPP.hpp"
 
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp){
     // userp is the pointer passed to the function setting CURLOPT_WRITEDATA
@@ -11,7 +12,7 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb; // Returns the number of bytes written   
 }
 
-#define URL "https://www.google.com"
+#define URL "http://defcom1.net"
 
 int main(void){
     CURL *curl; // A pointer to the CURL object
@@ -30,12 +31,13 @@ int main(void){
     res = curl_easy_perform(curl);
     curl_easy_cleanup(curl);
 
-    
     // ... HTMLHarvester code goes here ...
-    std::cout << readBuffer << std::endl;
+    
     std::ofstream out("output.html");
     out << readBuffer;
     out.close();
+
+    std::cout << "Title is: " << HTMLH::getTitle(readBuffer) << std::endl;
 
     return 0;
 }
