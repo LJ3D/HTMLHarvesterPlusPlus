@@ -5,6 +5,10 @@
 #include "../../HTMLHPP.hpp"
 #include <vector>
 
+
+/*
+    Function used by libcurl to write data to a string* (set by CURLOPT_WRITEDATA)
+*/
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp){
     // userp is the pointer passed to the function setting CURLOPT_WRITEDATA
     // In this case, assume its an std::string*
@@ -45,7 +49,6 @@ int main(void){
     std::cout << "Links:" << std::endl;
     for(auto i: links){
         std::cout << i << std::endl;
-
     }
 
     return 0;
