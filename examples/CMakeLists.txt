@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
 
-add_subdirectory(test_1)
-add_subdirectory(test_2)
+project(HTMLHarvesterExamples)
+
 add_subdirectory(example1)
