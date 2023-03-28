@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <curl/curl.h>
 
@@ -32,6 +33,9 @@ int main(void){
     
     // ... HTMLHarvester code goes here ...
     std::cout << readBuffer << std::endl;
-    
+    std::ofstream out("output.html");
+    out << readBuffer;
+    out.close();
+
     return 0;
 }
