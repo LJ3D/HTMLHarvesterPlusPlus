@@ -1,7 +1,7 @@
 # HTMLHarvesterPlusPlus
 C++ header-only library for extracting information from HTML documents
 ## Todo
-- [ ] Extract page title
+- [X] Extract page title
 - [ ] Extract all links
 - [ ] Cleaup extracted links (fix relative)
 - [ ] Extract image URLS
