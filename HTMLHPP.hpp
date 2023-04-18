@@ -13,7 +13,7 @@ namespace HTMLH {
     /*
         Find the title of the page by searching for the first <title> tag
     */
-    std::string getTitle(std::string& html){ // ! html passed by reference for increased performance, but dont modify it !
+    std::string getTitle(const std::string& html){
         size_t pos = html.find("<title>") + 7;
         size_t endpos = html.find("</title>");
         if(pos == std::string::npos){
@@ -32,7 +32,7 @@ namespace HTMLH {
     
         This function returns links of all types, from pages to CSS documents
     */
-    std::vector<std::string> getLinks(std::string& html){ // ! html passed by reference for increased performance, but dont modify it !
+    std::vector<std::string> getLinks(const std::string& html){
         std::vector<std::string> links;
         for(std::string tag : internal::linkTags){ // internal::linkTags contains a list of "tags" that specify links (src, href, etc)
             size_t found = html.find(tag, 0); // Find the first tag
@@ -56,7 +56,7 @@ namespace HTMLH {
     /*
         Fixes up relative links, etc
     */
-    void cleanlinks(std::vector<std::string>& links, std::string sourceURL){
+    void cleanlinks(std::vector<std::string>& links, const std::string& sourceURL){
         for(auto& url : links){
             // Remove anything after a #
             size_t hash = url.find('#');
@@ -86,6 +86,10 @@ namespace HTMLH {
             }
         }
     }
+
+    /*
+        Gets
+    */
 
 
 }
