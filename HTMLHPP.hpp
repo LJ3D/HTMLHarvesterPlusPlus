@@ -10,6 +10,9 @@ namespace HTMLH {
 
     }
 
+    /*
+        Find the title of the page by searching for the first <title> tag
+    */
     std::string getTitle(std::string& html){ // ! html passed by reference for increased performance, but dont modify it !
         size_t pos = html.find("<title>") + 7;
         size_t endpos = html.find("</title>");
@@ -23,6 +26,12 @@ namespace HTMLH {
         return title;
     }
 
+    /*
+        Returns a vector of strings by searching the tags in HTMLH::internal::linkTags
+        It is recommended to use the HTMLH::cleanlinks on the links returned by this function
+    
+        This function returns links of all types, from pages to CSS documents
+    */
     std::vector<std::string> getLinks(std::string& html){ // ! html passed by reference for increased performance, but dont modify it !
         std::vector<std::string> links;
         for(std::string tag : internal::linkTags){ // internal::linkTags contains a list of "tags" that specify links (src, href, etc)
@@ -44,6 +53,9 @@ namespace HTMLH {
         return links;
     }
 
+    /*
+        Fixes up relative links, etc
+    */
     void cleanlinks(std::vector<std::string>& links, std::string sourceURL){
         for(auto& url : links){
             // Remove anything after a #
