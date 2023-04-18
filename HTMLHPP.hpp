@@ -88,8 +88,13 @@ namespace HTMLH {
     }
 
     /*
-        Gets
+        Gets all readable content from a page
     */
+    std::string getPageTextRaw(const std::string& html){
+        std::string text;
+
+        return text;
+    }
 
 
 }
