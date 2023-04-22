@@ -17,7 +17,7 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb; // Returns the number of bytes written   
 }
 
-#define URL "http://defcom1.net"
+#define URL "https://github.com/"
 
 int main(void){
     // Init curl
@@ -42,16 +42,23 @@ int main(void){
     out.close();
 
     // Use HTMLHarvester to get information from the page
+    std::cout << "Getting title...\n";
     std::string title = HTMLH::getTitle(readBuffer);
+    std::cout << "Getting links...\n";
     std::vector<std::string> links = HTMLH::getLinks(readBuffer);
     HTMLH::cleanlinks(links, URL); // links passed by reference
+    std::cout << "Getting contents...\n";
+    std::string contents = HTMLH::getPageTextCleaned(readBuffer);
     
     // Print the information
     std::cout << "Title: " << title << std::endl;
+    std::cout << "===================" << std::endl;
     std::cout << "Links:" << std::endl;
     for(auto i: links){
         std::cout << i << std::endl;
     }
+    std::cout << "===================" << std::endl;
+    std::cout << "Contents: " << contents << std::endl;
 
     return 0;
 }

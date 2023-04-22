@@ -89,12 +89,51 @@ namespace HTMLH {
 
     /*
         Gets all readable content from a page
+        This means everything between a > and a <
+        So if you have "<p> text </p>" then you would extract " text "
+        Excludes scripts (probably)
     */
     std::string getPageTextRaw(const std::string& html){
         std::string text;
-
+        bool readChars = true;
+        for(int i=0; i<html.size(); i++){
+            if(html[i] == '<'){ // Dont read the contents of a tag
+                readChars = false;
+            }
+            if(readChars){
+                text += html[i];
+            }
+            if(html[i] == '>'){ // Start reading when out of a tag
+                readChars = true;
+                if(i > 6){
+                    if(html.substr(i-7,7) == "<script"){ // Dont read script contents
+                        readChars = false;
+                    }
+                }
+            }
+        }
         return text;
     }
 
+    void cleanRawText(std::string& text){
+        for(int i = 0; i < text.size(); i++){
+            if(text[i] == '\t'){
+                text.erase(i,1);
+                i--;
+            }
+        }
+        for(int i = 1; i < text.size(); i++){
+            if(text[i] == ' ' && text[i-1] == ' ' || text[i] == '\n' && text[i-1] == '\n' || text[i-1] == '\n' && text[i] == ' '){
+                text.erase(i,1);
+                i--;
+            }
+        }
+    }
 
+    std::string getPageTextCleaned(const std::string& html){
+        std::string text = getPageTextRaw(html);
+        cleanRawText(text);
+        return text;
+    }
+    
 }
